@@ -1,5 +1,4 @@
-import { CustomFilter, Hero, SearchBar } from "@/components";
-import Image from "next/image";
+import { CarList, CustomFilter, Hero, SearchBar } from "@/components";
 
 export default function Home() {
   return (
@@ -16,6 +15,7 @@ export default function Home() {
         <div>
           <CustomFilter />
         </div>
+        <CarList />
       </div>
     </main>
   );
