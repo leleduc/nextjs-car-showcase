@@ -1,6 +1,6 @@
 interface State {
   make: string;
-  mode: string;
+  model: string;
   year: string;
   fuel: string;
   limit: string;
