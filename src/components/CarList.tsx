@@ -1,10 +1,10 @@
-"use client";
-import React from "react";
-import { FetchCars } from "@/utils";
-import { CarCard } from ".";
+'use client';
+import React from 'react';
+import { FetchCars } from '@/utils';
+import { CarCard } from '.';
 
 const CarList = () => {
-  const { data, loading, error } = FetchCars("?model=corolla");
+  const { data, loading, error } = FetchCars('?model=corolla');
   console.log(data);
   const allCars = data;
 
