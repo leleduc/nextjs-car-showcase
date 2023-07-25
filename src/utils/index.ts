@@ -1,8 +1,8 @@
-"use client";
-import { useEffect, useState } from "react";
-import axios from "axios";
+'use client';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-import { CarProps, FilterProps } from "@/types";
+import { CarProps, FilterProps } from '@/types';
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
   const basePricePerDay = 50; // Base rental price per day in dollars
@@ -22,8 +22,8 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
 const makeRequest = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
-    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_API_KEY,
-    "X-RapidAPI-Host": process.env.NEXT_PUBLIC_API_HOST,
+    'X-RapidAPI-Key': process.env.NEXT_PUBLIC_API_KEY,
+    'X-RapidAPI-Host': process.env.NEXT_PUBLIC_API_HOST,
   },
 });
 
@@ -31,16 +31,6 @@ export function FetchCars(url: string) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
-  //   const options = {
-  //     method: "GET",
-  //     url: process.env.NEXT_PUBLIC_API_URL,
-  //     params: { model: "corolla" },
-  //     headers: {
-  //       "X-RapidAPI-Key": process.env.NEXT_PUBLIC_API_KEY,
-  //       "X-RapidAPI-Host": process.env.NEXT_PUBLIC_API_HOST,
-  //     },
-  //   };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,19 +51,19 @@ export function FetchCars(url: string) {
 }
 
 export const generateCarImageUrl = (car: CarProps, angle?: string) => {
-  const url = new URL("https://cdn.imagin.studio/getimage");
+  const url = new URL('https://cdn.imagin.studio/getimage');
   const { make, model, year } = car;
 
   url.searchParams.append(
-    "customer",
-    process.env.NEXT_PUBLIC_IMAGIN_API_KEY || ""
+    'customer',
+    process.env.NEXT_PUBLIC_IMAGIN_API_KEY || ''
   );
-  url.searchParams.append("make", make);
-  url.searchParams.append("modelFamily", model.split(" ")[0]);
-  url.searchParams.append("zoomType", "fullscreen");
-  url.searchParams.append("modelYear", `${year}`);
+  url.searchParams.append('make', make);
+  url.searchParams.append('modelFamily', model.split(' ')[0]);
+  url.searchParams.append('zoomType', 'fullscreen');
+  url.searchParams.append('modelYear', `${year}`);
   // url.searchParams.append('zoomLevel', zoomLevel);
-  url.searchParams.append("angle", `${angle}`);
+  url.searchParams.append('angle', `${angle}`);
 
   return `${url}`;
 };

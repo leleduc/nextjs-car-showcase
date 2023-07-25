@@ -2,9 +2,28 @@
 import React from 'react';
 import { FetchCars } from '@/utils';
 import { CarCard } from '.';
+import { useSearchParams } from 'next/navigation';
 
 const CarList = () => {
-  const { data, loading, error } = FetchCars('?model=corolla');
+  const searchParams = useSearchParams();
+  const make = searchParams.get('manufacturer') || '';
+  const model = searchParams.get('model') || '';
+  const year = searchParams.get('year') || '2022';
+  const fuel = searchParams.get('fuel') || '';
+  const limit = searchParams.get('limit') || '10';
+
+  const { data, loading, error } = FetchCars(
+    '?make=' +
+      make +
+      '&model=' +
+      model +
+      '&year=' +
+      year +
+      '&fuel=' +
+      fuel +
+      '&limit=' +
+      limit
+  );
   console.log(data);
   const allCars = data;
 
