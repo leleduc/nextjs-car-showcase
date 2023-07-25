@@ -24,16 +24,15 @@ const CarList = () => {
       '&limit=' +
       limit
   );
-  console.log(data);
-  const allCars = data;
+  // console.log(data);
 
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+  const isDataEmpty = !Array.isArray(data) || data.length < 1 || !data;
 
   if (!isDataEmpty) {
     return (
       <section>
         <div className="home__cars-wrapper">
-          {allCars?.map((car, index) => (
+          {data?.map((car, index) => (
             <CarCard car={car} key={index} />
           ))}
         </div>
