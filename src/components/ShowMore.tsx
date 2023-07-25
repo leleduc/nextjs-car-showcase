@@ -1,22 +1,30 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
-import { ShowMoreProps } from '@/types';
-import { updateSearchParams } from '@/utils';
-import { CustomButton } from '.';
+import { ShowMoreProps } from "@/types";
+import { updateSearchParams } from "@/utils";
+import { CustomButton } from ".";
+import { useContext } from "react";
+import { FilterContext } from "@/context/filter";
 
 const ShowMore = ({ pageNumber, isNext }: ShowMoreProps) => {
-  const router = useRouter();
+  // const router = useRouter();
+  const { filterDispatch } = useContext(FilterContext);
 
   const handleNavigation = () => {
     // Calculate the new limit based on the page number and navigation type
     const newLimit = (pageNumber + 1) * 10;
 
-    // Update the "limit" search parameter in the URL with the new value
-    const newPathname = updateSearchParams('limit', `${newLimit}`);
+    filterDispatch({
+      type: "LIMIT",
+      payload: [String(newLimit)],
+    });
 
-    router.push(newPathname);
+    // Update the "limit" search parameter in the URL with the new value
+    // const newPathname = updateSearchParams("limit", `${newLimit}`);
+
+    // router.push(newPathname);
   };
 
   return (

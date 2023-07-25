@@ -1,14 +1,15 @@
-'use client';
-import React, { useState } from 'react';
-import { SearchManufacturer } from '.';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useContext, useState } from "react";
+import { SearchManufacturer } from ".";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FilterContext } from "@/context/filter";
 
 const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
   <button type="submit" className={`-ml-3 z-10 ${otherClasses}`}>
     <Image
-      src={'/magnifying-glass.svg'}
-      alt={'magnifying glass'}
+      src={"/magnifying-glass.svg"}
+      alt={"magnifying glass"}
       width={40}
       height={40}
       className="object-contain"
@@ -17,19 +18,24 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
 );
 
 const SearchBar = () => {
-  const [manufacturer, setManuFacturer] = useState('');
-  const [model, setModel] = useState('');
+  const [manufacturer, setManuFacturer] = useState("");
+  const [model, setModel] = useState("");
 
   const router = useRouter();
+
+  const { filterDispatch } = useContext(FilterContext);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (manufacturer.trim() === '' && model.trim() === '') {
-      return alert('Please provide some input');
+    if (manufacturer.trim() === "" && model.trim() === "") {
+      return alert("Please provide some input");
     }
-
-    updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase());
+    filterDispatch({
+      type: "SEARCH",
+      payload: [manufacturer.trim(), model.trim()],
+    });
+    // updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase());
   };
 
   const updateSearchParams = (model: string, manufacturer: string) => {
@@ -38,16 +44,16 @@ const SearchBar = () => {
 
     // Update or delete the 'model' search parameter based on the 'model' value
     if (model) {
-      searchParams.set('model', model);
+      searchParams.set("model", model);
     } else {
-      searchParams.delete('model');
+      searchParams.delete("model");
     }
 
     // Update or delete the 'manufacturer' search parameter based on the 'manufacturer' value
     if (manufacturer) {
-      searchParams.set('manufacturer', manufacturer);
+      searchParams.set("manufacturer", manufacturer);
     } else {
-      searchParams.delete('manufacturer');
+      searchParams.delete("manufacturer");
     }
 
     // Generate the new pathname with the updated search parameters

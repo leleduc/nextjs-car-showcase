@@ -1,20 +1,28 @@
-'use client';
-import { Fragment, useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { Listbox, Transition } from '@headlessui/react';
-import { CustomFilterProps } from '@/types';
-import { updateSearchParams } from '@/utils';
+"use client";
+import { Fragment, useState, useContext } from "react";
+import Image from "next/image";
+// import { useRouter } from "next/navigation";
+import { Listbox, Transition } from "@headlessui/react";
+import { CustomFilterProps } from "@/types";
+import { updateSearchParams } from "@/utils";
+import { FilterContext } from "@/context/filter";
 
 const CustomFilter = ({ title, options }: CustomFilterProps) => {
-  const router = useRouter();
+  // const router = useRouter();
   const [selected, setSelected] = useState(options[0]); // State for storing the selected option
+
+  const { filterDispatch } = useContext(FilterContext);
 
   // update the URL search parameters and navigate to the new URL
   const handleUpdateParams = (e: { title: string; value: string }) => {
-    const newPathName = updateSearchParams(title, e.value.toLowerCase());
+    // const newPathName = updateSearchParams(title, e.value.toLowerCase());
+    // console.log(title.toUpperCase().trim());
+    filterDispatch({
+      type: title.toUpperCase(),
+      payload: [e.value.toLowerCase()],
+    });
 
-    router.push(newPathName);
+    // router.push(newPathName);
   };
 
   return (
@@ -51,7 +59,7 @@ const CustomFilter = ({ title, options }: CustomFilterProps) => {
                   key={option.title}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 px-4 ${
-                      active ? 'bg-primary-blue text-white' : 'text-gray-900'
+                      active ? "bg-primary-blue text-white" : "text-gray-900"
                     }`
                   }
                   value={option}
@@ -60,7 +68,7 @@ const CustomFilter = ({ title, options }: CustomFilterProps) => {
                     <>
                       <span
                         className={`block truncate ${
-                          selected ? 'font-medium' : 'font-normal'
+                          selected ? "font-medium" : "font-normal"
                         }`}
                       >
                         {option.title}
@@ -71,7 +79,6 @@ const CustomFilter = ({ title, options }: CustomFilterProps) => {
               ))}
             </Listbox.Options>
           </Transition>
-          CustomFilter
         </div>
       </Listbox>
     </div>

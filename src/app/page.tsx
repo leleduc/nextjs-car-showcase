@@ -1,5 +1,6 @@
-import { CarList, CustomFilter, Hero, SearchBar } from '@/components';
-import { fuels, yearsOfProduction } from '@/constants';
+import { CarList, CustomFilter, Hero, SearchBar } from "@/components";
+import { fuels, yearsOfProduction } from "@/constants";
+import { FilterProvider } from "@/context/filter";
 
 export default function Home() {
   return (
@@ -12,12 +13,14 @@ export default function Home() {
         </div>
       </div>
       <div className="home__filters">
-        <SearchBar />
-        <div className="home__filter-container">
-          <CustomFilter title="fuel" options={fuels} />
-          <CustomFilter title="year" options={yearsOfProduction} />
-        </div>
-        <CarList />
+        <FilterProvider>
+          <SearchBar />
+          <div className="home__filter-container">
+            <CustomFilter title="fuel" options={fuels} />
+            <CustomFilter title="year" options={yearsOfProduction} />
+          </div>
+          <CarList />
+        </FilterProvider>
       </div>
     </main>
   );

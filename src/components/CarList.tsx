@@ -1,28 +1,30 @@
-'use client';
-import React from 'react';
-import { FetchCars } from '@/utils';
-import { CarCard, ShowMore } from '.';
-import { useSearchParams } from 'next/navigation';
+"use client";
+import React, { useContext } from "react";
+import { FetchCars } from "@/utils";
+import { CarCard, ShowMore } from ".";
+import { useSearchParams } from "next/navigation";
+import { FilterContext } from "@/context/filter";
 
 const CarList = () => {
-  const searchParams = useSearchParams();
-  const make = searchParams.get('manufacturer') || '';
-  const model = searchParams.get('model') || '';
-  const year = searchParams.get('year') || '2022';
-  const fuel = searchParams.get('fuel') || '';
-  const limit = searchParams.get('limit') || '10';
+  const { state } = useContext(FilterContext);
+  // const searchParams = useSearchParams();
+  // const make = searchParams.get("manufacturer") || "";
+  // const model = searchParams.get("model") || "";
+  // const year = searchParams.get("year") || "2022";
+  // const fuel = searchParams.get("fuel") || "";
+  // const limit = searchParams.get("limit") || "10";
 
   const { data, loading, error } = FetchCars(
-    '?make=' +
-      make +
-      '&model=' +
-      model +
-      '&year=' +
-      year +
-      '&fuel=' +
-      fuel +
-      '&limit=' +
-      limit
+    "?make=" +
+      state.make +
+      "&model=" +
+      state.model +
+      "&year=" +
+      state.year +
+      "&fuel_type=" +
+      state.fuel +
+      "&limit=" +
+      state.limit
   );
   // console.log(data);
 
@@ -38,8 +40,8 @@ const CarList = () => {
         </div>
 
         <ShowMore
-          pageNumber={Number(limit) / 10}
-          isNext={Number(limit) > data.length}
+          pageNumber={Number(state.limit) / 10}
+          isNext={Number(state.limit) > data.length}
         />
       </section>
     );
