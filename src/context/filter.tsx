@@ -2,8 +2,6 @@
 import React, { createContext, useReducer } from "react";
 import { FilterReducer } from "@/reducer/filter";
 
-// import { FilterReducer } from "../reducer/filter";
-
 interface State {
   make: string;
   model: string;
