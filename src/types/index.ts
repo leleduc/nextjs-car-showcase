@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler } from 'react';
 
 export interface CarProps {
   city_mpg: number;
@@ -39,7 +39,7 @@ export interface CarCardProps {
 
 export interface CustomButtonProps {
   isDisabled?: boolean;
-  btnType?: "button" | "submit";
+  btnType?: 'button' | 'submit';
   containerStyles?: string;
   textStyles?: string;
   title: string;

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { FetchCars } from '@/utils';
-import { CarCard } from '.';
+import { CarCard, ShowMore } from '.';
 import { useSearchParams } from 'next/navigation';
 
 const CarList = () => {
@@ -36,6 +36,11 @@ const CarList = () => {
             <CarCard car={car} key={index} />
           ))}
         </div>
+
+        <ShowMore
+          pageNumber={Number(limit) / 10}
+          isNext={Number(limit) > data.length}
+        />
       </section>
     );
   } else {
